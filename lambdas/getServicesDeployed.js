@@ -8,7 +8,7 @@ exports.handler = async (event, context) => {
   // }
 
   try {
-    const data = await axios.get(event.url, {headers:{'X-API-TOKEN':xxxxx}}); //`http://mesos-master1-${event.environment}.development.aws.internal:8080/v2/apps`;
+    const data = await axios.get(event.url, {headers:{'X-API-TOKEN':xxxxx}});
 
     return { statusCode: 200, data: JSON.stringify(data) };
   } catch (err) {

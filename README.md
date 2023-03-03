@@ -1,6 +1,6 @@
 # App Development Deployer
 
-Innovation Time Project - Static web APP delivered from S3 and using plain JS to fetch info through API Gateway/Lambda.
+Static web APP delivered from S3 and using plain JS to fetch info through API Gateway/Lambda.
 
 ## To Start
 
