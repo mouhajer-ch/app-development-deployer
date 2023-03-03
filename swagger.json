@@ -1,0 +1,305 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This is a deployer service for development environment.",
+    "version": "1.0.0",
+    "title": "App Development Deployer",
+    "contact": {
+      "email": "mzaouali@companieshouse.gov.uk"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "host": "https://api-id.execute-api.region.amazonaws.com/stage",
+  "basePath": "/api",
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "paths": {
+    "/configuration": {
+      "get": {
+        "tags": [
+          "Configuration"
+        ],
+        "summary": "Get configuration data",
+        "description": "Returns environment configuration for all available services",
+        "operationId": "getAppsConfig",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/configuration/routes/{appid}": {
+      "get": {
+        "tags": [
+          "Configuration"
+        ],
+        "summary": "Get routes yml file data",
+        "description": "Returns routes yml file info",
+        "operationId": "getAppRouteConfig",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "appid",
+            "in": "path",
+            "description": "ID app service name",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "400": {
+            "description": "Invalid Request"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/configuration/zipurl/{appid}": {
+      "get": {
+        "tags": [
+          "Configuration"
+        ],
+        "summary": "Get release store zip file url",
+        "description": "Returns zip file url from release bucket",
+        "operationId": "getZipUrlFromReleaseBucket",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "appid",
+            "in": "path",
+            "description": "ID app service name",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "400": {
+            "description": "Invalid Request"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/services/{environment}": {
+      "get": {
+        "tags": [
+          "Services"
+        ],
+        "summary": "Get all services deployed to env",
+        "description": "Returns list of services deployed to environment",
+        "operationId": "getServicesDeployedToEnv",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "environment",
+            "in": "path",
+            "description": "ID of ENV that needs to be fetched",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "400": {
+            "description": "Invalid Request"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/services": {
+      "post": {
+        "tags": [
+          "Services"
+        ],
+        "summary": "Add all services into releted envs",
+        "description": "",
+        "operationId": "saveServices",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "400": {
+            "description": "Error"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/services/{environment}/{appid}": {
+      "patch": {
+        "tags": [
+          "Services"
+        ],
+        "summary": "Patch service (suspend, restart ...)",
+        "description": "For valid response try integer IDs with value >= 1 and <= 10.         Other values will generated exceptions",
+        "operationId": "patchServiceToEnv",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "environment",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          },
+          {
+            "name": "appid",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "400": {
+            "description": "Error"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Services"
+        ],
+        "summary": "Delete service from env",
+        "operationId": "deleteServiceToEnv",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "environment",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          },
+          {
+            "name": "appid",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "400": {
+            "description": "Error"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    }
+  },
+  "securityDefinitions": {
+    "account_or_cognito_auth": {
+      "type": "oauth2",
+      "authorizationUrl": "http://something/oauth",
+      "flow": "implicit",
+      "scopes": {
+        "write:services": "modify env with your aws access",
+        "read:services": "read from env servs with your aws access"
+      }
+    },
+    "api_key": {
+      "type": "apiKey",
+      "name": "ERIC-identity",
+      "in": "header"
+    }
+  }
+}
